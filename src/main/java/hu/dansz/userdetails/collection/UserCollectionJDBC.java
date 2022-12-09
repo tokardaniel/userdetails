@@ -2,9 +2,6 @@ package hu.dansz.userdetails.collection;
 
 import hu.dansz.userdetails.POJO.User;
 import hu.dansz.userdetails.db.DB;
-import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.list.ListItem;
-import org.apache.wicket.markup.html.list.ListView;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,8 +12,10 @@ public class UserCollectionJDBC implements IUserCollection {
     @Override
     public List<User> getUsers() {
         DB db = new DB();
+        String sql = "SELECT users.firstname, users.lastname, users.email, address.cim " +
+                "FROM users LEFT JOIN address ON users.address_id=address.id";
         try {
-            ResultSet resultSet =  db.executeQuerySql("SELECT firstname, lastname FROM users");
+            ResultSet resultSet =  db.executeQuerySql(sql);
             List<User> users = new LinkedList<>();
             while (resultSet.next()) {
                 User user = new User();
