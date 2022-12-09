@@ -21,6 +21,8 @@ public class UserCollectionJDBC implements IUserCollection {
                 User user = new User();
                 user.setFirstname(resultSet.getString("firstname"));
                 user.setLastname(resultSet.getString("lastname"));
+                user.setEmail(resultSet.getString("email"));
+                user.setCim(resultSet.getString("cim"));
                 users.add(user);
             }
             return users;
