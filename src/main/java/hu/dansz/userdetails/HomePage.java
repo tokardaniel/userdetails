@@ -33,6 +33,8 @@ public class HomePage extends WebPage {
 				final User user = item.getModelObject();
 				item.add(new Label("firstname", user.getFirstname()));
 				item.add(new Label("lastname", user.getLastname()));
+				item.add(new Label("email", user.getEmail()));
+				item.add(new Label("cim", user.getCim()));
 			}
 		});
 		// TODO Add your page's components here
