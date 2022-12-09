@@ -33,7 +33,6 @@ public class DB {
         Connection db = this.getConnection();
         Statement statement = db.createStatement();
         ResultSet resultSet = statement.executeQuery(sql);
-        db.close();
         return resultSet;
     }
 
