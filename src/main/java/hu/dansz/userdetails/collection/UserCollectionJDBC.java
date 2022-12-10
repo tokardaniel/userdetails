@@ -52,4 +52,16 @@ public class UserCollectionJDBC implements IUserCollection {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void saveUser(User user) {
+        DB db = new DB();
+        String sql = String.format("UPDATE users SET email='%s', address_id=%s WHERE id=%s",
+                user.getEmail(), user.getAddress_id(), user.getId());
+        try {
+            db.execute(sql);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -6,14 +6,10 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Data
-
-public class User implements Serializable {
+@NoArgsConstructor
+public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    Integer id;
-    String firstname;
-    String lastname;
-    String email;
-    String cim;
-    Integer address_id;
+    private Integer id;
+    private String cim;
 }
