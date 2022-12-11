@@ -78,9 +78,16 @@ public class UserPage extends WebPage {
             String email = (String)emailField.getDefaultModelObject();
             Address selectedAddress = drIModel.getObject();
 
-            user.setEmail(email);
-            user.setCim(selectedAddress.getCim());
-            user.setAddress_id(selectedAddress.getId());
+            if (email != null) {
+                user.setEmail(email);
+            } else {
+                user.setEmail("");
+            }
+
+            if (selectedAddress != null) {
+                user.setCim(selectedAddress.getCim());
+                user.setAddress_id(selectedAddress.getId());
+            }
 
             userCollectionJDBC.saveUser(user);
             setResponsePage(HomePage.class);
