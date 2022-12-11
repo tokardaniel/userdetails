@@ -1,0 +1,8 @@
+Dockerfile
+docker-compose.yaml
+target
+bin
+.settings
+.idea
+.classpath
+.project
