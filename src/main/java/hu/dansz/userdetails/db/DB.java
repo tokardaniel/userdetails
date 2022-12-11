@@ -36,6 +36,11 @@ public class DB {
         return resultSet;
     }
 
+    public PreparedStatement getPreparedStatement(String sql) throws SQLException {
+        Connection db = this.getConnection();
+        return db.prepareStatement(sql);
+    }
+
     private Connection getConnection() {
         try {
             Class.forName(this.driverClassName);
