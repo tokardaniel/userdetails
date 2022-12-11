@@ -35,7 +35,7 @@ public class UserCollectionJDBC implements IUserCollection {
     @Override
     public User findUserById(int id) {
         DB db = new DB();
-        String sql = String.format("SELECT users.id, users.firstname, users.lastname, users.email, address.cim " +
+        String sql = String.format("SELECT users.id, users.firstname, users.lastname, users.email, users.address_id, address.cim " +
                 "FROM users LEFT JOIN address ON users.address_id=address.id WHERE users.id=%s LIMIT 1", id);
         try {
             ResultSet resultSet = db.executeQuerySql(sql);
@@ -46,6 +46,7 @@ public class UserCollectionJDBC implements IUserCollection {
                 user.setLastname(resultSet.getString("lastname"));
                 user.setEmail(resultSet.getString("email"));
                 user.setCim(resultSet.getString("cim"));
+                user.setAddress_id(resultSet.getInt("address_id"));
             }
             return user;
         } catch (SQLException e) {

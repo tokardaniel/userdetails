@@ -11,10 +11,12 @@ import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.model.PropertyModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 import org.apache.wicket.util.string.StringValue;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class UserPage extends WebPage {
@@ -50,13 +52,7 @@ public class UserPage extends WebPage {
             firstnameField = new TextField("firstname", Model.of(user.getFirstname()));
             lastnameField = new TextField("lastname", Model.of(user.getLastname()));
             emailField = new TextField("email", Model.of(user.getEmail()));
-
-            add(firstnameField);
-            add(lastnameField);
-            add(emailField);
-
             drIModel = new Model<Address>();
-
             renderAddresSelect = new ChoiceRenderer<Address>("value", "key") {
                 @Override
                 public Object getDisplayValue(Address object) {
@@ -67,10 +63,23 @@ public class UserPage extends WebPage {
                     return object.getId().toString();
                 }
             };
-
             dropDownChoice = new DropDownChoice("addressSelect", drIModel, addresses, renderAddresSelect);
+
+            add(firstnameField);
+            add(lastnameField);
+            add(emailField);
             add(dropDownChoice);
+
+            // set default value
+            if (user.getAddress_id() != null) {
+                addresses.stream().forEach(address -> {
+                    if (address.getId() == user.getAddress_id()) {
+                        drIModel.setObject(address);
+                    }
+                });
+            }
         }
+
         public final void onSubmit() {
 
             final UserCollectionJDBC userCollectionJDBC = new UserCollectionJDBC();
