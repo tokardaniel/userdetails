@@ -4,10 +4,7 @@ import hu.dansz.userdetails.POJO.Address;
 import hu.dansz.userdetails.POJO.User;
 import hu.dansz.userdetails.collection.AddressCollectionJDBC;
 import hu.dansz.userdetails.collection.UserCollectionJDBC;
-import org.apache.wicket.markup.html.form.ChoiceRenderer;
-import org.apache.wicket.markup.html.form.DropDownChoice;
-import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.form.*;
 import org.apache.wicket.markup.html.link.StatelessLink;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -17,7 +14,7 @@ import java.util.List;
 public class UserForm extends Form<Object> {
     private TextField firstnameField;
     private TextField lastnameField;
-    private TextField emailField;
+    private EmailTextField emailField;
     private IModel<Address> drIModel;
     private ChoiceRenderer<Address> renderAddresSelect;
     private DropDownChoice<Address> dropDownChoice;
@@ -35,7 +32,7 @@ public class UserForm extends Form<Object> {
 
         firstnameField = new TextField("firstname", Model.of(user.getFirstname()));
         lastnameField = new TextField("lastname", Model.of(user.getLastname()));
-        emailField = new TextField("email", Model.of(user.getEmail()));
+        emailField = new EmailTextField("email", Model.of(user.getEmail()));
         drIModel = new Model<Address>();
         renderAddresSelect = new ChoiceRenderer<Address>("value", "key") {
             @Override
@@ -87,9 +84,10 @@ public class UserForm extends Form<Object> {
         if (selectedAddress != null) {
             user.setCim(selectedAddress.getCim());
             user.setAddress_id(selectedAddress.getId());
+            userCollectionJDBC.saveUser(user);
+            setResponsePage(HomePage.class);
+        } else {
+            // TODO
         }
-
-        userCollectionJDBC.saveUser(user);
-        setResponsePage(HomePage.class);
     }
 }

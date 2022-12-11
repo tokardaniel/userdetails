@@ -10,20 +10,20 @@
             <h4>Felhasználó szerkesztése</h4>
             <form method="POST" wicket:id="userForm">
                 <div class="form-group">
-                    <label for="firstname">Vezetéknév</label>
+                    <label for="firstname" class="form-label">Vezetéknév</label>
                     <input type="text" id="firstname" class="form-control" wicket:id="firstname" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="lastname">Keresztnév</label>
+                    <label for="lastname" class="form-label">Keresztnév</label>
                     <input type="text" id="lastname" class="form-control" wicket:id="lastname" readonly>
                 </div>
                 <div class="form-group">
-                    <label for="email">E-mail</label>
-                    <input type="text" id="email" class="form-control" wicket:id="email">
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="email" id="email" class="form-control" wicket:id="email" required>
                 </div>
                 <div class="form-group">
-                    <label for="addressSelect">Cím</label>
-                    <select class="form-control" id="addressSelect" wicket:id="addressSelect"></select>
+                    <label for="addressSelect" class="form-label">Cím</label>
+                    <select class="form-control" id="addressSelect" wicket:id="addressSelect" required></select>
                 </div>
                 <div class="form-group">
                     <input type="submit" value="Mentés" class="btn btn-success">
