@@ -8,6 +8,7 @@ import org.apache.wicket.markup.html.form.ChoiceRenderer;
 import org.apache.wicket.markup.html.form.DropDownChoice;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.markup.html.link.StatelessLink;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
@@ -20,6 +21,7 @@ public class UserForm extends Form<Object> {
     private IModel<Address> drIModel;
     private ChoiceRenderer<Address> renderAddresSelect;
     private DropDownChoice<Address> dropDownChoice;
+    private StatelessLink<Object> statelessLink;
     private User user;
 
     public UserForm(String id, int userId) {
@@ -46,11 +48,18 @@ public class UserForm extends Form<Object> {
             }
         };
         dropDownChoice = new DropDownChoice("addressSelect", drIModel, addresses, renderAddresSelect);
+        statelessLink = new StatelessLink<Object>("backBtn") {
+            @Override
+            public void onClick() {
+                setResponsePage(HomePage.class);
+            }
+        };
 
         add(firstnameField);
         add(lastnameField);
         add(emailField);
         add(dropDownChoice);
+        add(statelessLink);
 
         // set default value
         if (user.getAddress_id() != null) {
